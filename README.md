@@ -9,6 +9,9 @@ A Python-based autonomous navigation system for the Pi-top 4 robot, capable of n
 - Sound detection for emergency stops
 - Smooth motor control
 - Environment scanning and path planning
+- Comprehensive logging system
+- Command-line interface
+- Unit tests and test coverage
 
 ## Requirements
 
@@ -35,31 +38,56 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -e .
 ```
 
+4. Install test dependencies (optional):
+```bash
+pip install -e ".[test]"
+```
+
 ## Usage
 
-### Local Development
+### Command Line Interface
 
-1. Run the test script to verify functionality:
+The robot can be controlled using the command-line interface:
+
 ```bash
-python test_robot.py
+# Start autonomous navigation
+python -m robot.cli navigate --speed 0.5 --safe-distance 30
+
+# Test robot components
+python -m robot.cli test --component sensors
+python -m robot.cli test --component motors
+python -m robot.cli test --component all
 ```
 
-2. Run the autonomous navigation system:
-```bash
-python -m robot.autonomous_navigation
+### Python API
+
+You can also use the robot as a Python package:
+
+```python
+from robot import AutonomousRobot
+
+# Create and initialize robot
+robot = AutonomousRobot()
+
+# Start autonomous navigation
+robot.navigate()
+
+# Or control manually
+robot.move_forward(1.0)
+robot.turn(90)
+robot.stop()
 ```
 
-### Remote Deployment
+### Testing
 
-To deploy the project to a Raspberry Pi:
+Run the test suite:
 
 ```bash
-python -m robot.connect_to_pi <hostname> [username]
-```
+# Run all tests
+pytest
 
-Example:
-```bash
-python -m robot.connect_to_pi 192.168.1.100 pi
+# Run tests with coverage report
+pytest --cov=robot
 ```
 
 ## Project Structure
@@ -71,12 +99,31 @@ autonomous-robot/
 │       ├── __init__.py
 │       ├── autonomous_navigation.py
 │       ├── connect_to_pi.py
-│       └── test_components.py
+│       ├── config.py
+│       ├── logger.py
+│       ├── cli.py
+│       └── tests/
+│           ├── __init__.py
+│           └── test_robot.py
 ├── setup.py
 ├── requirements.txt
-├── test_robot.py
+├── pytest.ini
 └── README.md
 ```
+
+## Configuration
+
+The robot's behavior can be configured by modifying the settings in `src/robot/config.py`:
+
+- Movement parameters (speed, turn speed, etc.)
+- GPIO pin configuration
+- I2C settings
+- Emergency stop parameters
+- Navigation parameters
+
+## Logging
+
+The robot includes a comprehensive logging system that writes to both console and file. Log files are created with timestamps in the format `robot_YYYYMMDD_HHMMSS.log`.
 
 ## Contributing
 

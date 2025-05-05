@@ -15,6 +15,13 @@ setup(
         "smbus2>=0.4.1",
         "paramiko>=2.12.0"
     ],
+    extras_require={
+        "test": [
+            "pytest>=7.0.0",
+            "pytest-cov>=4.0.0",
+            "pytest-mock>=3.10.0"
+        ]
+    },
     author="Your Name",
     author_email="your.email@example.com",
     description="Autonomous navigation system for Pi-top 4 robot",
@@ -27,4 +34,10 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.7",
+    entry_points={
+        "console_scripts": [
+            "robot-navigate=robot.autonomous_navigation:main",
+            "robot-test=robot.tests.test_robot:main"
+        ]
+    }
 ) 
