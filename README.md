@@ -1,4 +1,4 @@
-# Autonomous Navigation Robot
+# Autonomous Navigation Robot for Pi-top 4
 
 A Python-based autonomous navigation system for the Pi-top 4 robot, capable of navigating from one side of a room to another using various sensors and motors.
 
@@ -12,10 +12,19 @@ A Python-based autonomous navigation system for the Pi-top 4 robot, capable of n
 - Comprehensive logging system
 - Command-line interface
 - Unit tests and test coverage
+- Battery monitoring
+- Display control
+- Camera integration
 
 ## Requirements
 
-- Pi-top 4 or Raspberry Pi with compatible sensors
+- Pi-top 4 with the following components:
+  - Ultrasonic sensor
+  - Servo motor
+  - Light sensor
+  - Sound sensor
+  - Camera
+  - Battery
 - Python 3.7+
 - Required Python packages (see requirements.txt)
 
@@ -90,6 +99,24 @@ pytest
 pytest --cov=robot
 ```
 
+## Configuration
+
+The robot's behavior can be configured by modifying the settings in `src/robot/config.py`:
+
+- Movement parameters (speed, turn speed, safe distance)
+- Sensor thresholds
+- Battery monitoring levels
+- Display settings
+- Camera settings
+
+## Logging
+
+The robot includes a comprehensive logging system that:
+- Logs to both console and file
+- Includes timestamps and log levels
+- Captures all robot operations and errors
+- Creates timestamped log files
+
 ## Project Structure
 
 ```
@@ -98,7 +125,6 @@ autonomous-robot/
 │   └── robot/
 │       ├── __init__.py
 │       ├── autonomous_navigation.py
-│       ├── connect_to_pi.py
 │       ├── config.py
 │       ├── logger.py
 │       ├── cli.py
@@ -110,20 +136,6 @@ autonomous-robot/
 ├── pytest.ini
 └── README.md
 ```
-
-## Configuration
-
-The robot's behavior can be configured by modifying the settings in `src/robot/config.py`:
-
-- Movement parameters (speed, turn speed, etc.)
-- GPIO pin configuration
-- I2C settings
-- Emergency stop parameters
-- Navigation parameters
-
-## Logging
-
-The robot includes a comprehensive logging system that writes to both console and file. Log files are created with timestamps in the format `robot_YYYYMMDD_HHMMSS.log`.
 
 ## Contributing
 
