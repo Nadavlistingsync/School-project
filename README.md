@@ -1,78 +1,90 @@
-# Autonomous Robot Navigation System
+# Autonomous Navigation Robot
 
-This project implements an autonomous navigation system for a robot using either Pi-top or standard Raspberry Pi hardware. The system uses various sensors (ultrasonic, light, sound) to navigate through an environment while avoiding obstacles.
+A Python-based autonomous navigation system for the Pi-top 4 robot, capable of navigating from one side of a room to another using various sensors and motors.
 
 ## Features
 
-- Platform-independent implementation (works with both Pi-top and standard Raspberry Pi)
 - Obstacle avoidance using ultrasonic sensors
 - Light-based navigation
 - Sound detection for emergency stops
 - Smooth motor control
-- Environment scanning with servo-mounted sensors
+- Environment scanning and path planning
 
-## Hardware Requirements
+## Requirements
 
-### For Pi-top:
-- Pi-top 4
-- Pi-top Ultrasonic Sensor
-- Pi-top Servo Motor
-- Pi-top Light Sensor
-- Pi-top Sound Sensor
-
-### For Standard Raspberry Pi:
-- Raspberry Pi (3B+ or 4 recommended)
-- Ultrasonic Sensor (HC-SR04)
-- Servo Motor
-- Light Dependent Resistor (LDR)
-- Sound Sensor
-- Motor Driver (L298N recommended)
-- 2 DC Motors
+- Pi-top 4 or Raspberry Pi with compatible sensors
+- Python 3.7+
+- Required Python packages (see requirements.txt)
 
 ## Installation
 
-1. Clone the repository:
+1. Clone this repository:
 ```bash
 git clone https://github.com/yourusername/autonomous-robot.git
 cd autonomous-robot
 ```
 
-2. Install dependencies:
+2. Create and activate a virtual environment:
 ```bash
-pip install -r requirements.txt
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. For Raspberry Pi setup:
-- Connect the sensors according to the GPIO pin configuration in `autonomous_navigation.py`
-- Adjust the GPIO pin numbers in the code to match your wiring
-- Set the correct I2C address for your servo controller
+3. Install the package in development mode:
+```bash
+pip install -e .
+```
 
 ## Usage
 
-Run the autonomous navigation system:
+### Local Development
+
+1. Run the test script to verify functionality:
 ```bash
-python autonomous_navigation.py
+python test_robot.py
 ```
 
-The robot will:
-1. Scan the environment using the ultrasonic sensor
-2. Detect light levels
-3. Navigate while avoiding obstacles
-4. Stop on detecting loud sounds
-5. Clean up GPIO pins when stopped
+2. Run the autonomous navigation system:
+```bash
+python -m robot.autonomous_navigation
+```
 
-## Configuration
+### Remote Deployment
 
-You can adjust the following parameters in the code:
-- `speed`: Base movement speed (default: 0.4)
-- `turn_speed`: Turning speed (default: 0.25)
-- `safe_distance`: Minimum safe distance from obstacles in cm (default: 25)
-- `scan_angle`: Scanning angle for obstacle detection (default: 90)
-- `target_light_level`: Target light level for navigation (default: 0.5)
+To deploy the project to a Raspberry Pi:
+
+```bash
+python -m robot.connect_to_pi <hostname> [username]
+```
+
+Example:
+```bash
+python -m robot.connect_to_pi 192.168.1.100 pi
+```
+
+## Project Structure
+
+```
+autonomous-robot/
+├── src/
+│   └── robot/
+│       ├── __init__.py
+│       ├── autonomous_navigation.py
+│       ├── connect_to_pi.py
+│       └── test_components.py
+├── setup.py
+├── requirements.txt
+├── test_robot.py
+└── README.md
+```
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests!
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
